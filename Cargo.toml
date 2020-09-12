@@ -1,0 +1,20 @@
+[package]
+name = "hm3301"
+version = "0.1.0"
+authors = ["Valentino Volonghi <dialtone@adroll.com>"]
+edition = "2018"
+repository = "https://github.com/dialtone/hm3301-rs"
+readme = ""
+keywords = ["pm2.5", "aqi", "pm10", "air", "quality", "sensor", "embedded-hal-driver"]
+include = [
+    "/**/*.rs",
+    "/Cargo.toml",
+    "/README.md",
+    "/LICENSE",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+embedded-hal = "0.2"
+nb = "1"
