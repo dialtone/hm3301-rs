@@ -2,7 +2,6 @@
 #![deny(unsafe_code)]
 #![no_std]
 
-use core::convert::TryInto;
 use core::fmt;
 use embedded_hal::blocking::i2c;
 use nb;
@@ -100,7 +99,7 @@ where
         // checksum, sum 0..28 and validate against 28.
         let mut sum: u8 = 0;
         for i in 0..=27 {
-                sum = sum.wrapping_add(i);
+                sum = sum.wrapping_add(buf[i]);
         }
         if sum != buf[28] {
             return Err(Error::ChecksumFailed);
@@ -109,7 +108,7 @@ where
         // bytes 2 through 15 contain the sensor number and the reading
         let mut res: [u16; 7] = [0; 7];
         for (i, chunk) in buf[2..16].chunks_exact(2).enumerate() {
-            res[i] = u16::from_ne_bytes(chunk.try_into().unwrap());
+            res[i] = u16::from_be_bytes([chunk[0], chunk[1]]);
         }
 
         Ok(Measurement::from(res))
