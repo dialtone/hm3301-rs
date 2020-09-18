@@ -100,7 +100,7 @@ where
         // checksum, sum 0..28 and validate against 28.
         let mut sum: u8 = 0;
         for i in 0..=27 {
-            sum += i;
+                sum = sum.wrapping_add(i);
         }
         if sum != buf[28] {
             return Err(Error::ChecksumFailed);
